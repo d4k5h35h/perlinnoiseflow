@@ -4,7 +4,9 @@ function Particle() {
   this.acc = createVector(0, 0);
   this.maxspeed = 4;
   this.prevPos = this.pos.copy();
-  
+  var r = 0;
+  var g = 230;
+  var b = 255;
   this.update = function() {
     this.vel.add(this.acc);
     this.vel.limit(this.maxspeed);
@@ -25,17 +27,20 @@ function Particle() {
   }
 
   this.show = function() {
-    stroke(r,r,r);
-    strokeWeight(0.1);
-    line(this.pos.x, this.pos.y,this.prevPos.x,this.prevPos.y);
+  r = map(this.pos.x, 0, windowWidth, 0, 255);
+  b = map(this.pos.x, 0, windowWidth, 255, 0);
+  g = map(this.pos.y, 0,windowHeight, 0, 230);
+    stroke(r,g,b);
+    strokeWeight(0.1);   
+    line(this.pos.x, this.pos.y, this.prevPos.x, this.prevPos.y);
     this.updatePrev();
   }
-  
-  this.updatePrev = function(){
-  this.prevPos.x = this.pos.x;
-  this.prevPos.y = this.pos.y;
+
+  this.updatePrev = function() {
+    this.prevPos.x = this.pos.x;
+    this.prevPos.y = this.pos.y;
   }
-  
+
   this.edges = function() {
     if (this.pos.x > width) {
       this.pos.x = 0;
